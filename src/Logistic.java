@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: tpeng
  * Date: 6/22/12
  * Time: 11:01 PM
@@ -58,7 +57,7 @@ public class Logistic {
 
     public static void main(String... args) throws FileNotFoundException {
         List<Instance> instances = DataSet.readDataSet("dataset.txt");
-        Logistic logistic = new Logistic(5);
+        Logistic logistic = new Logistic(6); //set
         logistic.train(instances);
         int[] x = {2, 1, 1, 0, 1};
         System.out.println("prob(1|x) = " + logistic.classify(x));
