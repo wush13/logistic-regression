@@ -29,7 +29,7 @@ public class Logistic {
         return 1 / (1 + Math.exp(-z));
     }
 
-    public void train(List<Instance> instances) {
+    public void train_SGD(List<Instance> instances) {
         for (int n=0; n<ITERATIONS; n++) {
             double lik = 0.0;
             for (int i=0; i<instances.size(); i++) {
@@ -43,6 +43,24 @@ public class Logistic {
                 lik += label * Math.log(classify(x)) + (1-label) * Math.log(1- classify(x));
             }
             System.out.println("iteration: " + n + " " + Arrays.toString(weights) + " mle: " + lik);
+        }
+    }
+    
+    public void train_GD(List<Instance> instances) {
+        for (int n=0; n<ITERATIONS; n++) {
+        	double[] gradients = new double[weights.length];
+            for (int i=0; i<instances.size(); i++) {
+                int[] x = instances.get(i).getX();
+                double predicted = classify(x);
+                int label = instances.get(i).getLabel();
+                for (int j=0; j<weights.length; j++) {
+                    gradients[j] += rate * (label - predicted) * x[j];
+                }                
+            }
+            for (int j=0; j<weights.length; j++) {
+                weights[j] = weights[j] + gradients[j];
+            }
+            System.out.println("iteration: " + n + " " + Arrays.toString(weights) );
         }
     }
 
